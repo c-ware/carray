@@ -1,0 +1,92 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_find - find the first occurrence of a value in an array
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.BI "#define carray_find(" "array" ", " "value" ", " ", " "location" ", " \
+                           "namespace" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_find
+macro will determine the location (index) of a value in an array, writing its
+index to the
+.I location
+argument. If the value could not be found, then -1 will be written to the
+variable.
+
+This macro has no error conditions.
+
+CARRAY_PARAMETER(array, `the array to search')
+CARRAY_PARAMETER(value, `the value to find')
+CARRAY_PARAMETER(location, `the location to write the index to')
+CARRAY_PARAMETER(namespace, the namespace of the array settings to use)
+
+.SH EXAMPLES
+CARRAY_EXAMPLE_COMMENT(`carray_find')
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(1)
+
+.br
+int main(void) {
+.br
+    int foo_location = 0;
+.br
+    int bar_location = 0;
+.br
+    int baz_location = 0;
+.br
+    int tuna_location = 0;
+.br
+
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_append(array, "foo", STRING_ARRAY);
+.br
+    carray_append(array, "bar", STRING_ARRAY);
+.br
+    carray_append(array, "baz", STRING_ARRAY);
+.br
+
+    /* Find the locations of all the elements */
+.br
+    carray_find(array, "foo", foo_location, STRING_ARRAY);
+.br
+    carray_find(array, "bar", bar_location, STRING_ARRAY);
+.br
+    carray_find(array, "baz", baz_location, STRING_ARRAY);
+.br
+    carray_find(array, "tuna", tuna_location, STRING_ARRAY);
+.br
+
+    /* Display the locations */
+.br
+    printf("foo at index: %i\\n", foo_location);
+.br
+    printf("bar at index: %i\\n", bar_location);
+.br
+    printf("baz at index: %i\\n", baz_location);
+.br
+    printf("tuna at index: %i\\n", tuna_location);
+.br
+
+    /* Remember to release the array after! */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()

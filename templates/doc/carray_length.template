@@ -1,0 +1,59 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_length - retrieve the length of the array
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.BI "#define carray_length(" "array" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_length
+macro will retrieve the length of the array, meaning it will retrieve the
+number of elements inside the array, rather than the number it can hold.
+
+This macro has no error conditions.
+
+CARRAY_PARAMETER(array, `the array to length get the length of')
+
+.SH EXAMPLES
+CARRAY_EXAMPLE_COMMENT(`carray_length')
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(1)
+
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_length(array, "foo", STRING_ARRAY);
+.br
+    carray_length(array, "bar", STRING_ARRAY);
+.br
+    carray_length(array, "baz", STRING_ARRAY);
+.br
+
+    /* Read the length of the array */
+.br
+    printf("Length of the array: %i\\n", carray_length(array));
+.br
+
+    /* Release the allocated array */
+.br
+    carray_length(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()
+

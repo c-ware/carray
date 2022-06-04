@@ -1,0 +1,58 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_free - release the array and its contents from memory
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.BI "#define carray_free(" "array" ", " "namespace" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_free
+macro will release the array from memory, along with its contents and its
+buffer. It makes use of the
+.B ARRAY_NAME_FREE
+macro function to release each value from memory. If there is no need to free
+the data inside the array, like if the data is on the stack, then that macro
+should be empty.
+
+This macro has no error conditions.
+
+CARRAY_PARAMETER(array, `the array to free')
+CARRAY_PARAMETER(namespace, the namespace of the array settings to use)
+
+.SH EXAMPLES
+CARRAY_EXAMPLE_COMMENT(`carray_free')
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(1)
+
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_append(array, "foo", STRING_ARRAY);
+.br
+    carray_append(array, "bar", STRING_ARRAY);
+.br
+    carray_append(array, "baz", STRING_ARRAY);
+.br
+
+    /* Release the allocated array */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()

@@ -1,0 +1,116 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.TH "CARRAY_INIT" "cware" "March 8th, 2022" "" \
+    "C-Ware Manual"
+
+
+.SH NAME
+carray_init - initialise a new array on the heap
+
+.SH SYNOPSIS
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.BI "#define carray_init(" "array" ", " "namespace" ");"
+
+.SH DESCRIPTION
+The
+.B carray_init
+macro initialises a new array on the heap. The resulting array must be released
+from memory at the end of the program. The array can also grow as more items
+are inserted into it.
+
+This function has no error conditions.
+
+.I array
+will be the array variable to initialise the array into
+.br
+.I namespace
+will be the namespace of the array settings to use
+.br
+
+.SH EXAMPLES
+
+/*
+ * This example showcases how to use the
+.B carray_pop
+macro.
+.br
+*/
+
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.TS
+tab(;);
+l l
+.
+#define STRING_ARRAY_TYPE;char*
+#define STRING_ARRAY_HEAP;1
+#define STRING_ARRAY_FREE(value);NULL
+#define STRING_ARRAY_COMPARE(cmp_a, cmp_b);(strcmp(cmp_a, cmp_b) == 0)
+.TE
+
+struct StringArray {
+    int length;
+    int capacity;
+    char **contents;
+.br
+};
+
+
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Remember to release the array after! */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+
+.BR cware (cware),
+.BR carray (cware)
+

@@ -1,0 +1,147 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray - a dynamic array implementation
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+struct
+.IR ArrayName
+{
+.br
+.RS 0.4i
+.I\&type
+*contents;   /* The contents of the array */
+.br
+int length;     /* How much of the array is used */
+.br
+int capacity;   /* How much memory is allocated */
+.RE
+.br
+};
+.br
+
+/* Global array configuration (can be configured before inclusion) */
+.br
+.TS
+tab(;);
+lb l l
+.
+#define CARRAY_INITIAL_SIZE;5;/* Initial size of a heap array. Must be \
+positive */
+#define CARRAY_COUNTER_TYPE;int;/* Type of iterator counters */
+#define CARRAY_RESIZE(size);((size) + 5);/* Calculates the next size of the \
+array */
+.TE
+
+/* Individual array configuration */
+.br
+.TS
+tab(;);
+lb l
+.
+#define ARRAY_NAME_TYPE;/* Type the array contains */
+#define ARRAY_NAME_FREE(value);/* Release a value in the array from memory */
+#define ARRAY_NAME_COMPARE(cmp_a, cmp_b);/* Compare two values in the array */
+#define ARRAY_NAME_HEAP;/* Whether or not the array should use heap memory */
+.TE
+
+/* Array operations */
+.br
+.BI "#define carray_init(" "array" ", " "namespace" ");"
+.br
+.BI "#define carray_init_stack(" "array" ", " "buffer" ", " "_capacity" ", " \
+                                 "namespace" ");"
+.br
+.BI "#define carray_insert(" "array" ", " "index" ", " "value" ", " \
+                             "namespace" ");"
+.br
+.BI "#define carray_pop(" "array" ", " "index" ", " "location" ");"
+.br
+.BI "#define carray_remove(" "array" ", " "value" ", " "namespace" ");"
+.br
+.BI "#define carray_find(" "array" ", " "value" ", " "location" ", " \
+                           "namespace" ");"
+.br
+.BI "#define carray_free(" "array" ");"
+.br
+.BI "#define carray_append(" "array" ", " "value" ", " "namespace" ");"
+.br
+.BI "#define carray_length(" "array" ");"
+.br
+.BI "#define carray_is_empty(" "array" ");"
+.br
+
+.SH DESCRIPTION
+An ANSI C compliant dynamic array implementation using macros. The array comes
+with a stack and heap mode. The array is also type safe, and is highly
+portable.
+
+The carray library comes with most general operations that can be found in
+existing languages. These do not include utility operations like reversal, or
+counting. However, they may exist in the future.
+
+Most operations in carray require access to external information, like the type
+of the array, the free function, and more. This data should be defined in the
+form of macros, and all the ones that carray takes advantage of can be found in
+the
+.B SYNOPSIS
+section.
+
+In order to reduce the number of arguments that need to be passed to each of
+the operations, carray utilises a namespace system. In the case of the ones in
+synopsis,
+.B ARRAY_NAME
+would be passed as the
+.I namespace
+argument to each macro.
+
+All operations except for
+.BR carray_length (cware)
+and
+.BR carray_is_empty (cware)
+will raise an error if either the contents of the array is
+.BR NULL ,
+or the array itself is
+.BR NULL .
+This is not stated in the manual pages of the operations because it applies to
+most of them, and is essentially just boilerplate.
+
+The macros can be prefixed with any name, but must end with the
+.BR _TYPE ,
+.BR _HEAP ,
+etc, names. What follows is a table of each operation and its manual page.
+
+.TS
+tab(;);
+lb l
+_ _
+lb l
+.
+Manual;Description
+carray_append(CWARE_MANUAL_SECTION);Reference for the append operation
+carray_find(CWARE_MANUAL_SECTION);Reference for the find operation
+carray_free(CWARE_MANUAL_SECTION);Reference for the free operation
+carray_init(CWARE_MANUAL_SECTION);Reference for the init operation
+carray_init_stack(CWARE_MANUAL_SECTION);Reference for the stack init operation
+carray_insert(CWARE_MANUAL_SECTION);Reference for the insert operation
+carray_pop(CWARE_MANUAL_SECTION);Reference for the pop operation
+carray_remove(CWARE_MANUAL_SECTION);Reference for the remove operation
+carray_length(CWARE_MANUAL_SECTION);Reference for the length operation
+carray_is_empty(CWARE_MANUAL_SECTION);Reference for the is_empty operation
+.TE
+
+.SH CONFORMING TO
+This library conforms to C89, and is supported on the following platforms:
+.IP \[bu] 0.4i
+Linux
+.IP \[bu] 0.4i
+FreeBSD
+.IP \[bu] 0.4i
+OpenBSD
+
+.SH SEE ALSO
+.BR cware (CWARE_MANUAL_SECTION)

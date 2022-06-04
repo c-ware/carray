@@ -1,0 +1,67 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_pop - pop an element from a location in an array
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.BI "#define carray_pop(" "array" ", " "index" ", " "location" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_pop
+macro will pop a value from a certain location in an array, and return it.
+
+CARRAY_ERROR_LIST_START()
+CARRAY_ERROR_COND(`The index is out of bounds of the array')
+CARRAY_ERROR_COND(`The array is empty')
+CARRAY_ERROR_LIST_END()
+
+CARRAY_PARAMETER(array, the array variable to initialise the array into)
+CARRAY_PARAMETER(index, the location in the array to pop from)
+CARRAY_PARAMETER(namespace, the namespace of the array settings to use)
+
+.SH EXAMPLES
+CARRAY_EXAMPLE_COMMENT(`carray_pop')
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(1)
+
+int main(void) {
+.br
+    char *middle = NULL;
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_append(array, "foo", STRING_ARRAY);
+.br
+    carray_append(array, "bar", STRING_ARRAY);
+.br
+    carray_append(array, "baz", STRING_ARRAY);
+.br
+
+    /* Remove the middle value */
+.br
+    middle = carray_pop(array, 1, STRING_ARRAY);
+.br
+
+    printf("%s\\n", middle);
+.br
+
+    /* Remember to release the array after! */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()

@@ -1,0 +1,66 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_append - add data to the end of an array
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.BI "#define carray_append(" "array" ", " "value" ", " "namespace" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_append
+macro will add data to the end of an array. If the array is full, then the
+array will be resized using the
+.B CWARE_LIBCARRAY_RESIZE
+macro function. This can only occur in heap mode, however.
+
+CARRAY_ERROR_LIST_START()
+CARRAY_ERROR_COND(`The array is full in stack mode')
+CARRAY_ERROR_LIST_END()
+
+
+CARRAY_PARAMETER(array, `the array to append to')
+CARRAY_PARAMETER(value, `the value to append')
+CARRAY_PARAMETER(namespace, the namespace of the array settings to use)
+
+.SH EXAMPLES
+CARRAY_EXAMPLE_COMMENT(`carray_append')
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(1)
+
+.br
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_append(array, "foo", STRING_ARRAY);
+.br
+    carray_append(array, "bar", STRING_ARRAY);
+.br
+    carray_append(array, "baz", STRING_ARRAY);
+.br
+
+    /* Release the allocated array */
+.br
+    carray_append(array, STRING_ARRAY);
+.br
+    /* Release the array from memory */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()
+

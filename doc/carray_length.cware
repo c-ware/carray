@@ -1,0 +1,128 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.TH "CARRAY_LENGTH" "cware" "March 8th, 2022" "" \
+    "C-Ware Manual"
+
+
+.SH NAME
+carray_length - retrieve the length of the array
+
+.SH SYNOPSIS
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.BI "#define carray_length(" "array" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_length
+macro will retrieve the length of the array, meaning it will retrieve the
+number of elements inside the array, rather than the number it can hold.
+
+This macro has no error conditions.
+
+.I array
+will be the array to length get the length of
+.br
+
+.SH EXAMPLES
+
+/*
+ * This example showcases how to use the
+.B carray_length
+macro.
+.br
+*/
+
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.TS
+tab(;);
+l l
+.
+#define STRING_ARRAY_TYPE;char*
+#define STRING_ARRAY_HEAP;1
+#define STRING_ARRAY_FREE(value);NULL
+#define STRING_ARRAY_COMPARE(cmp_a, cmp_b);(strcmp(cmp_a, cmp_b) == 0)
+.TE
+
+struct StringArray {
+    int length;
+    int capacity;
+    char **contents;
+.br
+};
+
+
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_length(array, "foo", STRING_ARRAY);
+.br
+    carray_length(array, "bar", STRING_ARRAY);
+.br
+    carray_length(array, "baz", STRING_ARRAY);
+.br
+
+    /* Read the length of the array */
+.br
+    printf("Length of the array: %i\\n", carray_length(array));
+.br
+
+    /* Release the allocated array */
+.br
+    carray_length(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+
+.BR cware (cware),
+.BR carray (cware)
+
+

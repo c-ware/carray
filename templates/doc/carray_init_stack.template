@@ -1,0 +1,60 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_init_stack - initialise a new array on the stack
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.BI "#define carray_init_stack(" "array" ", " "buffer" ", " "_capacity" ", " \
+                                 "namespace" ");"
+
+.SH DESCRIPTION
+The
+.B carray_init_stack
+macro initialises a new array on the stack. The resulting array does not need
+to be  released from memory at the end of the program, as it is on the stack,
+and will be automatically freed as its caller goes out of scope. However,
+because of this, the array cannot grow in size. It will be stuck at the fixed
+number of elements given to it.
+
+CARRAY_ERROR_LIST_START()
+CARRAY_ERROR_COND(The buffer is NULL)
+CARRAY_ERROR_COND(_capacity is less than or equal to zero)
+CARRAY_ERROR_LIST_END()
+
+CARRAY_PARAMETER(array, the array variable to initialise the array into)
+CARRAY_PARAMETER(buffer, the buffer to use to store the contents of the array in)
+CARRAY_PARAMETER(_capacity, the maximum capacity of the list)
+CARRAY_PARAMETER(namespace, the namespace of the array settings to use)
+
+.SH EXAMPLES
+CARRAY_EXAMPLE_COMMENT(carray_init_stack)
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(0)
+
+.br
+int main(void) {
+.br
+    /* Stack arrays must be passed as a pointer to the functions that operate
+.br
+       on them */
+.br
+    char *strings[4] = {0};
+.br
+    struct StringArray array = carray_init_stack(&array, strings, 4
+.br
+                                                 STRING_ARRAY);
+.br
+
+    /* No need to free the array; do note the use of a & though. */
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()

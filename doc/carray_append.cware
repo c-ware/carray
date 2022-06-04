@@ -1,0 +1,149 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.TH "CARRAY_APPEND" "cware" "March 8th, 2022" "" \
+    "C-Ware Manual"
+
+
+.SH NAME
+carray_append - add data to the end of an array
+
+.SH SYNOPSIS
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.BI "#define carray_append(" "array" ", " "value" ", " "namespace" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_append
+macro will add data to the end of an array. If the array is full, then the
+array will be resized using the
+.B CWARE_LIBCARRAY_RESIZE
+macro function. This can only occur in heap mode, however.
+
+
+This macro will print an error message to the stderr, and exit the program when
+any of the following conditions are met:
+.RS
+
+
+.IP \[bu] 0.4i
+The array is full in stack mode
+.br
+
+
+.RE
+
+
+
+.I array
+will be the array to append to
+.br
+.I value
+will be the value to append
+.br
+.I namespace
+will be the namespace of the array settings to use
+.br
+
+.SH EXAMPLES
+
+/*
+ * This example showcases how to use the
+.B carray_append
+macro.
+.br
+*/
+
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.TS
+tab(;);
+l l
+.
+#define STRING_ARRAY_TYPE;char*
+#define STRING_ARRAY_HEAP;1
+#define STRING_ARRAY_FREE(value);NULL
+#define STRING_ARRAY_COMPARE(cmp_a, cmp_b);(strcmp(cmp_a, cmp_b) == 0)
+.TE
+
+struct StringArray {
+    int length;
+    int capacity;
+    char **contents;
+.br
+};
+
+
+.br
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_append(array, "foo", STRING_ARRAY);
+.br
+    carray_append(array, "bar", STRING_ARRAY);
+.br
+    carray_append(array, "baz", STRING_ARRAY);
+.br
+
+    /* Release the allocated array */
+.br
+    carray_append(array, STRING_ARRAY);
+.br
+    /* Release the array from memory */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+
+.BR cware (cware),
+.BR carray (cware)
+
+

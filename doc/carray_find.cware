@@ -1,0 +1,167 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.TH "CARRAY_FIND" "cware" "March 8th, 2022" "" \
+    "C-Ware Manual"
+
+
+.SH NAME
+carray_find - find the first occurrence of a value in an array
+
+.SH SYNOPSIS
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.BI "#define carray_find(" "array" ", " "value" ", " ", " "location" ", " \
+                           "namespace" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_find
+macro will determine the location (index) of a value in an array, writing its
+index to the
+.I location
+argument. If the value could not be found, then -1 will be written to the
+variable.
+
+This macro has no error conditions.
+
+.I array
+will be the array to search
+.br
+.I value
+will be the value to find
+.br
+.I location
+will be the location to write the index to
+.br
+.I namespace
+will be the namespace of the array settings to use
+.br
+
+.SH EXAMPLES
+
+/*
+ * This example showcases how to use the
+.B carray_find
+macro.
+.br
+*/
+
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.TS
+tab(;);
+l l
+.
+#define STRING_ARRAY_TYPE;char*
+#define STRING_ARRAY_HEAP;1
+#define STRING_ARRAY_FREE(value);NULL
+#define STRING_ARRAY_COMPARE(cmp_a, cmp_b);(strcmp(cmp_a, cmp_b) == 0)
+.TE
+
+struct StringArray {
+    int length;
+    int capacity;
+    char **contents;
+.br
+};
+
+
+.br
+int main(void) {
+.br
+    int foo_location = 0;
+.br
+    int bar_location = 0;
+.br
+    int baz_location = 0;
+.br
+    int tuna_location = 0;
+.br
+
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_append(array, "foo", STRING_ARRAY);
+.br
+    carray_append(array, "bar", STRING_ARRAY);
+.br
+    carray_append(array, "baz", STRING_ARRAY);
+.br
+
+    /* Find the locations of all the elements */
+.br
+    carray_find(array, "foo", foo_location, STRING_ARRAY);
+.br
+    carray_find(array, "bar", bar_location, STRING_ARRAY);
+.br
+    carray_find(array, "baz", baz_location, STRING_ARRAY);
+.br
+    carray_find(array, "tuna", tuna_location, STRING_ARRAY);
+.br
+
+    /* Display the locations */
+.br
+    printf("foo at index: %i\\n", foo_location);
+.br
+    printf("bar at index: %i\\n", bar_location);
+.br
+    printf("baz at index: %i\\n", baz_location);
+.br
+    printf("tuna at index: %i\\n", tuna_location);
+.br
+
+    /* Remember to release the array after! */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+
+.BR cware (cware),
+.BR carray (cware)
+

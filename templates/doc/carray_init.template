@@ -1,0 +1,45 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_init - initialise a new array on the heap
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.BI "#define carray_init(" "array" ", " "namespace" ");"
+
+.SH DESCRIPTION
+The
+.B carray_init
+macro initialises a new array on the heap. The resulting array must be released
+from memory at the end of the program. The array can also grow as more items
+are inserted into it.
+
+This function has no error conditions.
+
+CARRAY_PARAMETER(array, the array variable to initialise the array into)
+CARRAY_PARAMETER(namespace, the namespace of the array settings to use)
+
+.SH EXAMPLES
+CARRAY_EXAMPLE_COMMENT(carray_pop)
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(1)
+
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Remember to release the array after! */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()

@@ -1,0 +1,63 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_remove - remove the first occurrence of a value from an array
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.BI "#define carray_remove(" "array" ", " "value" ", " "namespace" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_remove
+macro will remove the first occurrence of a value from an array, and do nothing
+more. If the value is not found within the array, then the program will exit
+and display an error message.
+
+CARRAY_ERROR_LIST_START()
+CARRAY_ERROR_COND(`The value could not be found')
+CARRAY_ERROR_LIST_END()
+
+CARRAY_PARAMETER(array, the array to remove from)
+CARRAY_PARAMETER(value, the value to remove)
+CARRAY_PARAMETER(namespace, the namespace of the array settings to use)
+
+.SH EXAMPLES
+CARRAY_EXAMPLE_COMMENT(`carray_remove')
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(1)
+
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_append(array, "foo", STRING_ARRAY);
+.br
+    carray_append(array, "bar", STRING_ARRAY);
+.br
+    carray_append(array, "baz", STRING_ARRAY);
+.br
+
+    /* Remove the first occurrence of "bar" */
+.br
+    carray_remove(array, "bar", STRING_ARRAY);
+.br
+
+    /* Remember to release the array after! */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()

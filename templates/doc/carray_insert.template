@@ -1,0 +1,60 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_insert - insert a value into an array at some location
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.br
+.BI "#define carray_insert(" "array" ", " "index" ", " "value" ", " \
+                             "namespace" ");"
+
+.SH DESCRIPTION
+Inserts a value into an array at some location. The location must be within the
+bounds of the array. If the array is in heap mode, the array will be resized
+when the length is equal to the capacity. Otherwise, if the array is full, then
+an error will occur.
+
+CARRAY_ERROR_LIST_START()
+CARRAY_ERROR_COND(`The index is less than zero or greater than the length of the array')
+CARRAY_ERROR_COND(`The array is full in stack mode')
+CARRAY_ERROR_LIST_END()
+
+CARRAY_PARAMETER(`array', `the array to insert into')
+CARRAY_PARAMETER(`index', `the location in the array to insert into')
+CARRAY_PARAMETER(`value', `the value to insert')
+CARRAY_PARAMETER(`namespace', `the namespace of the array settings to use')
+
+.SH EXAMPLE
+CARRAY_EXAMPLE_COMMENT(`carray_insert')
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(1)
+
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Insert some values */
+.br
+    carray_insert(array, 0, "foo", STRING_ARRAY);
+.br
+    carray_insert(array, 1, "foo", STRING_ARRAY);
+.br
+    carray_insert(array, 2, "foo", STRING_ARRAY);
+.br
+
+    /* Release the array */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()

@@ -1,0 +1,67 @@
+include(./carray.m4)
+
+CARRAY_HEADER()
+
+.SH NAME
+carray_is_empty - determine if an array is empty
+
+.SH SYNOPSIS
+CARRAY_INCLUSIONS()
+
+.BI "#define carray_is_empty(" "array" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_is_empty
+macro will determine if an array is empty. If the array is empty, this will
+return 1. If it is not empty, this will return 0.
+
+This macro has no error conditions.
+
+CARRAY_PARAMETER(array, `the array to check for emptiness')
+
+.SH EXAMPLES
+CARRAY_EXAMPLE_COMMENT(`carray_is_empty')
+CARRAY_INCLUSIONS()
+CARRAY_EXAMPLE_INFO(1)
+
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_append(array, "foo", STRING_ARRAY);
+.br
+    carray_append(array, "bar", STRING_ARRAY);
+.br
+    carray_append(array, "baz", STRING_ARRAY);
+.br
+
+    /* Check if the array is empty */
+.br
+    if(carray_is_empty(array) == 1) {
+.br
+        printf("%s", "The array is empty.\\n");
+.br
+    } else {
+.br
+        printf("%s", "The array is not empty.\\n");
+.br
+    }
+.br
+
+    /* Release the allocated array */
+.br
+    carray_is_empty(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+CARRAY_SEE_ALSO()
+

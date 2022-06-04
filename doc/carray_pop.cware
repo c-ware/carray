@@ -1,0 +1,154 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.TH "CARRAY_POP" "cware" "March 8th, 2022" "" \
+    "C-Ware Manual"
+
+
+.SH NAME
+carray_pop - pop an element from a location in an array
+
+.SH SYNOPSIS
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.BI "#define carray_pop(" "array" ", " "index" ", " "location" ");"
+.br
+
+.SH DESCRIPTION
+The
+.B carray_pop
+macro will pop a value from a certain location in an array, and return it.
+
+
+This macro will print an error message to the stderr, and exit the program when
+any of the following conditions are met:
+.RS
+
+
+.IP \[bu] 0.4i
+The index is out of bounds of the array
+.br
+
+
+.IP \[bu] 0.4i
+The array is empty
+.br
+
+
+.RE
+
+
+.I array
+will be the array variable to initialise the array into
+.br
+.I index
+will be the location in the array to pop from
+.br
+.I namespace
+will be the namespace of the array settings to use
+.br
+
+.SH EXAMPLES
+
+/*
+ * This example showcases how to use the
+.B carray_pop
+macro.
+.br
+*/
+
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.TS
+tab(;);
+l l
+.
+#define STRING_ARRAY_TYPE;char*
+#define STRING_ARRAY_HEAP;1
+#define STRING_ARRAY_FREE(value);NULL
+#define STRING_ARRAY_COMPARE(cmp_a, cmp_b);(strcmp(cmp_a, cmp_b) == 0)
+.TE
+
+struct StringArray {
+    int length;
+    int capacity;
+    char **contents;
+.br
+};
+
+
+int main(void) {
+.br
+    char *middle = NULL;
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Append some data to the array */
+.br
+    carray_append(array, "foo", STRING_ARRAY);
+.br
+    carray_append(array, "bar", STRING_ARRAY);
+.br
+    carray_append(array, "baz", STRING_ARRAY);
+.br
+
+    /* Remove the middle value */
+.br
+    middle = carray_pop(array, 1, STRING_ARRAY);
+.br
+
+    printf("%s\\n", middle);
+.br
+
+    /* Remember to release the array after! */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+
+.BR cware (cware),
+.BR carray (cware)
+

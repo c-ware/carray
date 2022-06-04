@@ -1,0 +1,149 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.TH "CARRAY_INIT_STACK" "cware" "March 8th, 2022" "" \
+    "C-Ware Manual"
+
+
+.SH NAME
+carray_init_stack - initialise a new array on the stack
+
+.SH SYNOPSIS
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.BI "#define carray_init_stack(" "array" ", " "buffer" ", " "_capacity" ", " \
+                                 "namespace" ");"
+
+.SH DESCRIPTION
+The
+.B carray_init_stack
+macro initialises a new array on the stack. The resulting array does not need
+to be  released from memory at the end of the program, as it is on the stack,
+and will be automatically freed as its caller goes out of scope. However,
+because of this, the array cannot grow in size. It will be stuck at the fixed
+number of elements given to it.
+
+
+This macro will print an error message to the stderr, and exit the program when
+any of the following conditions are met:
+.RS
+
+
+.IP \[bu] 0.4i
+The buffer is NULL
+.br
+
+
+.IP \[bu] 0.4i
+_capacity is less than or equal to zero
+.br
+
+
+.RE
+
+
+.I array
+will be the array variable to initialise the array into
+.br
+.I buffer
+will be the buffer to use to store the contents of the array in
+.br
+.I _capacity
+will be the maximum capacity of the list
+.br
+.I namespace
+will be the namespace of the array settings to use
+.br
+
+.SH EXAMPLES
+
+/*
+ * This example showcases how to use the
+.B carray_init_stack
+macro.
+.br
+*/
+
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.TS
+tab(;);
+l l
+.
+#define STRING_ARRAY_TYPE;char*
+#define STRING_ARRAY_HEAP;0
+#define STRING_ARRAY_FREE(value);NULL
+#define STRING_ARRAY_COMPARE(cmp_a, cmp_b);(strcmp(cmp_a, cmp_b) == 0)
+.TE
+
+struct StringArray {
+    int length;
+    int capacity;
+    char **contents;
+.br
+};
+
+
+.br
+int main(void) {
+.br
+    /* Stack arrays must be passed as a pointer to the functions that operate
+.br
+       on them */
+.br
+    char *strings[4] = {0};
+.br
+    struct StringArray array = carray_init_stack(&array, strings, 4
+.br
+                                                 STRING_ARRAY);
+.br
+
+    /* No need to free the array; do note the use of a & though. */
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+
+.BR cware (cware),
+.BR carray (cware)
+

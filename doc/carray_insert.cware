@@ -1,0 +1,149 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.TH "CARRAY_INSERT" "cware" "March 8th, 2022" "" \
+    "C-Ware Manual"
+
+
+.SH NAME
+carray_insert - insert a value into an array at some location
+
+.SH SYNOPSIS
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.br
+.BI "#define carray_insert(" "array" ", " "index" ", " "value" ", " \
+                             "namespace" ");"
+
+.SH DESCRIPTION
+Inserts a value into an array at some location. The location must be within the
+bounds of the array. If the array is in heap mode, the array will be resized
+when the length is equal to the capacity. Otherwise, if the array is full, then
+an error will occur.
+
+
+This macro will print an error message to the stderr, and exit the program when
+any of the following conditions are met:
+.RS
+
+
+.IP \[bu] 0.4i
+The index is less than zero or greater than the length of the array
+.br
+
+
+.IP \[bu] 0.4i
+The array is full in stack mode
+.br
+
+
+.RE
+
+
+.I array
+will be the array to insert into
+.br
+.I index
+will be the location in the array to insert into
+.br
+.I value
+will be the value to insert
+.br
+.I namespace
+will be the namespace of the array settings to use
+.br
+
+.SH EXAMPLE
+
+/*
+ * This example showcases how to use the
+.B carray_insert
+macro.
+.br
+*/
+
+
+.B #include <stdio.h>
+.br
+.B #include <stdlib.h>
+.br
+.B #include <string.h>
+.br
+.B #include <cware/carray/carray.h>
+.br
+
+
+.TS
+tab(;);
+l l
+.
+#define STRING_ARRAY_TYPE;char*
+#define STRING_ARRAY_HEAP;1
+#define STRING_ARRAY_FREE(value);NULL
+#define STRING_ARRAY_COMPARE(cmp_a, cmp_b);(strcmp(cmp_a, cmp_b) == 0)
+.TE
+
+struct StringArray {
+    int length;
+    int capacity;
+    char **contents;
+.br
+};
+
+
+int main(void) {
+.br
+    struct StringArray *array = carray_init(array, STRING_ARRAY);
+.br
+
+    /* Insert some values */
+.br
+    carray_insert(array, 0, "foo", STRING_ARRAY);
+.br
+    carray_insert(array, 1, "foo", STRING_ARRAY);
+.br
+    carray_insert(array, 2, "foo", STRING_ARRAY);
+.br
+
+    /* Release the array */
+.br
+    carray_free(array, STRING_ARRAY);
+.br
+
+    return EXIT_SUCCESS;
+.br
+}
+
+.SH SEE ALSO
+
+.BR cware (cware),
+.BR carray (cware)
+

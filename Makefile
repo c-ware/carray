@@ -5,9 +5,9 @@
 CC=cc
 PREFIX=/usr/local
 CFLAGS=-ansi -Wall -Wextra -Wshadow -Wdouble-promotion -fpic -Wno-unused-variable -Wno-unused-function
-TESTS=tests/stress_test.out tests/stack_remove.out tests/stack_pop.out tests/stack_insert.out tests/stack_init.out tests/stack_find.out tests/stack_append.out tests/remove.out tests/pop.out tests/insert.out tests/init.out tests/find.out tests/append.out 
-DOCS=./doc/carray_remove.cware ./doc/carray_pop.cware ./doc/carray_length.cware ./doc/carray_is_empty.cware ./doc/carray_insert.cware ./doc/carray_init_stack.cware ./doc/carray_init.cware ./doc/carray_free.cware ./doc/carray_find.cware ./doc/carray_append.cware ./doc/carray.cware 
-MANNAMES=carray_remove.cware carray_pop.cware carray_length.cware carray_is_empty.cware carray_insert.cware carray_init_stack.cware carray_init.cware carray_free.cware carray_find.cware carray_append.cware carray.cware 
+TESTS=tests/find.out tests/stack_insert.out tests/stack_find.out tests/stress_test.out tests/stack_init.out tests/stack_remove.out tests/stack_pop.out tests/stack_append.out tests/pop.out tests/append.out tests/init.out tests/remove.out tests/insert.out 
+DOCS=./doc/carray_init_stack.cware ./doc/carray_is_empty.cware ./doc/carray_pop.cware ./doc/carray_find.cware ./doc/carray_append.cware ./doc/carray_insert.cware ./doc/carray_remove.cware ./doc/carray.cware ./doc/carray_length.cware ./doc/carray_init.cware ./doc/carray_free.cware 
+MANNAMES=carray_init_stack.cware carray_is_empty.cware carray_pop.cware carray_find.cware carray_append.cware carray_insert.cware carray_remove.cware carray.cware carray_length.cware carray_init.cware carray_free.cware 
 DEBUGGER=
 
 .PHONY: all clean check install

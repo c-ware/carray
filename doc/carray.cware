@@ -53,20 +53,23 @@ int capacity;   /* How much memory is allocated */
 .RE
 .br
 };
+.br
 
-#ifndef CWARE_LIBCARRAY_INITIAL_SIZE
+/* Global array configuration (can be configured before inclusion) */
 .br
-#define CWARE_LIBCARRAY_INITIAL_SIZE 5
-.br
-#endif
+.TS
+tab(;);
+lb l l
+.
+#define CARRAY_INITIAL_SIZE;5;/* Initial size of a heap array. Must be \
+positive */
+#define CARRAY_COUNTER_TYPE;int;/* Type of iterator counters */
+#define CARRAY_RESIZE(size);((size) + 5);/* Calculates the next size of the \
+array */
+.TE
 
-#ifndef CWARE_LIBCARRAY_RESIZE
+/* Individual array configuration */
 .br
-#define CWARE_LIBCARRAY_RESIZE(current_size) \
-    ((current_size) + 1)
-.br
-#endif
-
 .TS
 tab(;);
 lb l
@@ -77,6 +80,8 @@ lb l
 #define ARRAY_NAME_HEAP;/* Whether or not the array should use heap memory */
 .TE
 
+/* Array operations */
+.br
 .BI "#define carray_init(" "array" ", " "namespace" ");"
 .br
 .BI "#define carray_init_stack(" "array" ", " "buffer" ", " "_capacity" ", " \

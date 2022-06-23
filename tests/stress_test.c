@@ -7,8 +7,6 @@
 
 int main(void) {
     int index = 0;
-    struct StringArray *new_array = carray_init(new_array, STRING_ARRAY);
-
     char *strings[100] = {
         "mjh", "exc", "yqq", "wjr", "hal", "ttc", "vkr", "ush", "nnl", "vrd",
         "iqw", "nlp", "maz", "xbn", "ipi", "mud", "pbu", "lgv", "qmd", "hjh",
@@ -21,6 +19,8 @@ int main(void) {
         "byc", "ybl", "rkx", "sdm", "qnf", "iuw", "lri", "fui", "usg", "xjh",
         "ezq", "beq", "kzu", "ezj", "bhj", "dgv", "wez", "pjr", "kvl", "egh",
     };
+
+    struct StringArray *new_array = carray_init(new_array, STRING_ARRAY);
 
     /* Append values */
     for(index = 0; index < 100; index++) {

@@ -10013,7 +10013,6 @@ int i = 0;
 struct StringArray *new_array;
 
 int main(void) {
-    int i = 0;
     clock_t start, end;
     double wall_time = 0;
 

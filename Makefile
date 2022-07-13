@@ -5,9 +5,9 @@
 CC=cc
 PREFIX=/usr/local
 CFLAGS=-ansi -Wall -Wextra -Wshadow -Wdouble-promotion -fpic -Wno-unused-variable -Wno-unused-function
-TESTS=tests//stack_pop.out tests//stress_test.out tests//stack_append.out tests//pop.out tests//stack_init.out tests//insert.out tests//init.out tests//stack_insert.out tests//extreme_stress.out tests//append.out tests//stack_remove.out tests//stack_find.out tests//remove.out tests//find.out 
-DOCS=./doc/carray_find.cware ./doc/carray_free.cware ./doc/carray_append.cware ./doc/carray_init.cware ./doc/carray_insert.cware ./doc/carray_is_empty.cware ./doc/carray_pop.cware ./doc/carray.cware ./doc/carray_length.cware ./doc/carray_remove.cware ./doc/carray_init_stack.cware 
-MANNAMES=carray_find.cware carray_free.cware carray_append.cware carray_init.cware carray_insert.cware carray_is_empty.cware carray_pop.cware carray.cware carray_length.cware carray_remove.cware carray_init_stack.cware 
+TESTS=tests/append.out tests/find.out tests/init.out tests/insert.out tests/pop.out tests/remove.out tests/speed_test1.out tests/speed_test2.out tests/speed_test3.out tests/stack_append.out tests/stack_find.out tests/stack_init.out tests/stack_insert.out tests/stack_pop.out tests/stack_remove.out tests/stress_test.out 
+DOCS=./doc/carray.cware ./doc/carray_append.cware ./doc/carray_find.cware ./doc/carray_free.cware ./doc/carray_init.cware ./doc/carray_init_stack.cware ./doc/carray_insert.cware ./doc/carray_is_empty.cware ./doc/carray_length.cware ./doc/carray_pop.cware ./doc/carray_remove.cware 
+MANNAMES=carray.cware carray_append.cware carray_find.cware carray_free.cware carray_init.cware carray_init_stack.cware carray_insert.cware carray_is_empty.cware carray_length.cware carray_pop.cware carray_remove.cware 
 DEBUGGER=
 
 .PHONY: all clean check install
